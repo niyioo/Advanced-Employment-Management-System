@@ -11,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"backend/models" // Import your models package
+	"github.com/niyioo/Advanced-Employment-Management-System/backend/models"
 )
 
 var client *mongo.Client
@@ -211,6 +211,25 @@ func main() {
 
 		c.JSON(http.StatusOK, gin.H{"message": "Employee deleted successfully"})
 	})
+
+	// Define route for creating a new department
+r.POST("/departments", func(c *gin.Context) {
+	var department models.Department
+	if err := c.BindJSON(&department); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// Call the InsertDepartment function to insert the department into the database
+	err := InsertDepartment(department)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{"message": "Department created successfully"})
+})
+
 
 	// Run the server
 	r.Run(":8080")

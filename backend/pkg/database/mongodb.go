@@ -6,7 +6,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"github.com/niyioo/Advanced-Employment-Management-System\backend/models"
+	"github.com/niyioo/Advanced-Employment-Management-System/backend/models"
 )
 
 var client *mongo.Client
